@@ -215,10 +215,32 @@ const seedInitialData = async () => {
 };
 
 const connectDB = async () => {
+  const configuredUri = process.env.MONGODB_URI;
+
+  if (configuredUri) {
+    try {
+      console.log('Attempting connection to configured MongoDB instance...');
+      const conn = await mongoose.connect(configuredUri, {
+        serverSelectionTimeoutMS: 10000,
+      });
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+      await seedInitialData();
+      return;
+    } catch (error) {
+      console.error(`MongoDB connection error: ${error.message}`);
+      process.exit(1);
+    }
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    console.error('MONGODB_URI is required when NODE_ENV is production.');
+    process.exit(1);
+  }
+
   try {
-    // First attempt to connect to standard MONGODB_URI with short timeout
-    console.log('Attempting connection to MongoDB at', process.env.MONGODB_URI || 'mongodb://localhost:27017/lms');
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/lms', {
+    // Use local MongoDB when configured locally, then fall back to an in-memory database for development.
+    console.log('Attempting connection to local MongoDB at mongodb://localhost:27017/lms');
+    const conn = await mongoose.connect('mongodb://localhost:27017/lms', {
       serverSelectionTimeoutMS: 2000,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);

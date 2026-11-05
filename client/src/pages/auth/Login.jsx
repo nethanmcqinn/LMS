@@ -94,32 +94,6 @@ const Login = () => {
 
           <div className="mt-8 border-t border-gray-200 pt-6">
             <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-              Quick Demo Accounts (Click to Fill)
-            </p>
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('faculty@demo.edu');
-                  setPassword('Password123!');
-                }}
-                className="w-full py-2 px-3 border border-indigo-200 rounded-lg bg-indigo-50/80 hover:bg-indigo-100 text-xs font-semibold text-indigo-800 transition text-center"
-              >
-                👨‍🏫 Faculty Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('student@demo.edu');
-                  setPassword('Password123!');
-                }}
-                className="w-full py-2 px-3 border border-emerald-200 rounded-lg bg-emerald-50/80 hover:bg-emerald-100 text-xs font-semibold text-emerald-800 transition text-center"
-              >
-                👨‍🎓 Student Demo
-              </button>
-            </div>
-
-            <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
               Or Register New Account
             </p>
             <div className="grid grid-cols-2 gap-3">
